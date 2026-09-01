@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>27国考言语刷题课·校正解析</title>
+<title>刷题解析</title>
 <style>
 :root{
 --primary:#2563eb;--primary-light:#dbeafe;--primary-dark:#1d4ed8;--bg:#f8fafc;--surface:#fff;
@@ -20,6 +20,12 @@ display:flex;flex-direction:column;transition:transform .3s ease;z-index:100;}
 .sidebar-header{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .sidebar-title{font-size:16px;font-weight:600;}
 .sidebar-close{display:none;background:none;border:none;font-size:20px;cursor:pointer;color:var(--text2);}
+.book-tabs{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;flex-shrink:0;}
+.book-tabs::-webkit-scrollbar{display:none;}
+.book-tab{flex-shrink:0;padding:7px 14px;border:1px solid var(--border);background:var(--surface);border-radius:20px;
+font-size:13px;cursor:pointer;color:var(--text2);transition:all .2s;white-space:nowrap;}
+.book-tab:hover{border-color:var(--primary);color:var(--primary);}
+.book-tab.active{background:var(--primary);color:#fff;border-color:var(--primary);font-weight:600;}
 .sidebar-content{flex:1;overflow-y:auto;padding:8px;}
 .set-button{width:100%;padding:12px 16px;border:none;background:none;text-align:left;font-size:14px;cursor:pointer;
 border-radius:8px;display:flex;align-items:center;justify-content:space-between;color:var(--text);transition:background .2s;}
@@ -39,7 +45,7 @@ cursor:pointer;text-align:center;transition:all .2s;color:var(--text);}
 .top-bar{height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);
 display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;}
 .menu-btn{display:none;background:none;border:none;font-size:20px;cursor:pointer;color:var(--text);}
-.breadcrumb{font-size:14px;color:var(--text2);}
+.breadcrumb{font-size:14px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .breadcrumb strong{color:var(--text);}
 .top-actions{margin-left:auto;display:flex;gap:8px;}
 .icon-btn{background:none;border:none;font-size:18px;cursor:pointer;padding:6px;border-radius:8px;color:var(--text2);}
@@ -109,6 +115,7 @@ color:#fff;padding:8px 16px;border-radius:20px;font-size:13px;z-index:50;animati
 <div class="app">
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-header"><span class="sidebar-title">章节导航</span><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
+  <div class="book-tabs" id="book-tabs"></div>
   <div class="sidebar-content" id="sidebar-content"></div>
 </aside>
 <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
@@ -135,16 +142,35 @@ color:#fff;padding:8px 16px;border-radius:20px;font-size:13px;z-index:50;animati
 </div>
 <div class="swipe-hint" id="swipe-hint">←→ 左右滑动切换题目</div>
 <script>
-let indexData=null, setCache={}, curSetData=null, curSet=-1, curQ=0, isAnim=false, loading=false;
+let indexData=null, setCache={}, curSetData=null, curBook=0, curSet=-1, curQ=0, isAnim=false, loading=false;
 const sidebar=document.getElementById('sidebar'),overlay=document.getElementById('overlay'),
 sidebarContent=document.getElementById('sidebar-content'),slideContainer=document.getElementById('slide-container'),
 breadcrumb=document.getElementById('breadcrumb'),navDots=document.getElementById('nav-dots'),
 prevBtn=document.getElementById('prev-btn'),nextBtn=document.getElementById('next-btn'),
-contentArea=document.getElementById('content-area');
+contentArea=document.getElementById('content-area'),bookTabs=document.getElementById('book-tabs');
 
+function bookMeta(){return indexData.books[curBook];}
+function setMeta(si){return bookMeta().sets[si];}
+
+function initBookTabs(){
+  bookTabs.innerHTML='';
+  indexData.books.forEach((b,bi)=>{
+    const t=document.createElement('button');
+    t.className='book-tab'+(bi===curBook?' active':'');
+    t.textContent=b.book_name;
+    t.onclick=()=>switchBook(bi);
+    bookTabs.appendChild(t);
+  });
+}
+function switchBook(bi){
+  if(bi===curBook) return;
+  curBook=bi;curSet=-1;curQ=0;curSetData=null;
+  initBookTabs();initSidebar();
+  if(bookMeta().sets.length>0) selectQuestion(0,0);
+}
 function initSidebar(){
   sidebarContent.innerHTML='';
-  indexData.sets.forEach((set,si)=>{
+  bookMeta().sets.forEach((set,si)=>{
     const item=document.createElement('div');
     const sbtn=document.createElement('button');
     sbtn.className='set-button';
@@ -168,12 +194,12 @@ function toggleSet(si){
   if(!sh){ql.classList.add('show');sbtn.classList.add('expanded');}
 }
 async function getSet(si){
-  const meta=indexData.sets[si];
-  if(setCache[meta.set_num]) return setCache[meta.set_num];
-  const r=await fetch('set'+meta.set_num+'.json',{cache:'no-cache'});
+  const meta=setMeta(si),key=curBook+'-'+meta.set_num;
+  if(setCache[key]) return setCache[key];
+  const r=await fetch('b'+(curBook+1)+'/set'+meta.set_num+'.json',{cache:'no-cache'});
   if(!r.ok) throw new Error('HTTP '+r.status);
   const d=await r.json();
-  setCache[meta.set_num]=d;
+  setCache[key]=d;
   return d;
 }
 function renderCard(q){
@@ -207,26 +233,27 @@ function slideTo(qi,animate=true){
 }
 async function selectQuestion(si,qi){
   if(isAnim||loading) return;
-  const meta=indexData.sets[si];
+  const meta=setMeta(si);
   document.querySelectorAll('.set-button').forEach((b,i)=>b.classList.toggle('active',i===si));
   document.querySelectorAll('.q-btn').forEach(b=>b.classList.remove('active'));
   const ql=document.getElementById('qlist-'+si);
   document.querySelectorAll('.question-list.show').forEach(el=>el.classList.remove('show'));
   document.querySelectorAll('.set-button.expanded').forEach(el=>el.classList.remove('expanded'));
   if(ql){ql.classList.add('show');ql.previousElementSibling.classList.add('expanded');if(ql.children[qi])ql.children[qi].classList.add('active');}
-  if(si===curSet && setCache[meta.set_num]){slideTo(qi);return;}
+  const key=curBook+'-'+meta.set_num;
+  if(si===curSet && setCache[key]){slideTo(qi);return;}
   loading=true;
   showState('⏳','正在加载 '+meta.set_name+'…');
-  breadcrumb.innerHTML='<strong>'+meta.set_name+'</strong> <span style="color:var(--text2)">加载中…</span>';
+  breadcrumb.innerHTML='<strong>'+bookMeta().book_name+'</strong> <span style="color:var(--text2)">/ '+meta.set_name+' 加载中…</span>';
   try{
     const d=await getSet(si);
     curSet=si;curQ=qi;
     renderSlides(d);
-    breadcrumb.innerHTML='<strong>'+d.set_name+'</strong> <span style="color:var(--text2)">/ 共 '+d.questions.length+' 题</span>';
+    breadcrumb.innerHTML='<strong>'+bookMeta().book_name+'</strong> <span style="color:var(--text2)">/ '+d.set_name+' / 共 '+d.questions.length+' 题</span>';
     slideTo(qi,false);
   }catch(e){
     curSet=-1;curSetData=null;
-    breadcrumb.innerHTML='<strong>'+meta.set_name+'</strong> <span style="color:#dc2626">加载失败</span>';
+    breadcrumb.innerHTML='<strong>'+bookMeta().book_name+'</strong> <span style="color:var(--text2)">/ '+meta.set_name+'</span> <span style="color:#dc2626">加载失败</span>';
     showState('⚠️','题目数据加载失败，请检查网络后重试');
   }finally{loading=false;}
 }
@@ -259,8 +286,9 @@ contentArea.addEventListener('touchend',e=>{tex=e.changedTouches[0].screenX;cons
     const r=await fetch('index.json',{cache:'no-cache'});
     if(!r.ok) throw new Error('HTTP '+r.status);
     indexData=await r.json();
+    initBookTabs();
     initSidebar();
-    if(indexData.sets.length>0) selectQuestion(0,0);
+    if(bookMeta().sets.length>0) selectQuestion(0,0);
   }catch(e){
     breadcrumb.innerHTML='<strong>加载失败</strong>';
     showState('⚠️','数据索引加载失败，请检查网络后重试');
