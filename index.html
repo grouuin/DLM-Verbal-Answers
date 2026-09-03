@@ -20,12 +20,14 @@ display:flex;flex-direction:column;transition:transform .3s ease;z-index:100;}
 .sidebar-header{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .sidebar-title{font-size:16px;font-weight:600;}
 .sidebar-close{display:none;background:none;border:none;font-size:20px;cursor:pointer;color:var(--text2);}
-.book-tabs{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;flex-shrink:0;}
-.book-tabs::-webkit-scrollbar{display:none;}
-.book-tab{flex-shrink:0;padding:7px 14px;border:1px solid var(--border);background:var(--surface);border-radius:20px;
-font-size:13px;cursor:pointer;color:var(--text2);transition:all .2s;white-space:nowrap;}
-.book-tab:hover{border-color:var(--primary);color:var(--primary);}
-.book-tab.active{background:var(--primary);color:#fff;border-color:var(--primary);font-weight:600;}
+.book-select-wrap{padding:10px 12px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.book-select-label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;padding-left:2px;}
+.book-select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;
+background:var(--surface);color:var(--text);cursor:pointer;outline:none;
+appearance:none;-webkit-appearance:none;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+background-repeat:no-repeat;background-position:right 12px center;}
+.book-select:focus{border-color:var(--primary);}
 .sidebar-content{flex:1;overflow-y:auto;padding:8px;}
 .set-button{width:100%;padding:12px 16px;border:none;background:none;text-align:left;font-size:14px;cursor:pointer;
 border-radius:8px;display:flex;align-items:center;justify-content:space-between;color:var(--text);transition:background .2s;}
@@ -115,7 +117,10 @@ color:#fff;padding:8px 16px;border-radius:20px;font-size:13px;z-index:50;animati
 <div class="app">
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-header"><span class="sidebar-title">章节导航</span><button class="sidebar-close" onclick="closeSidebar()">✕</button></div>
-  <div class="book-tabs" id="book-tabs"></div>
+  <div class="book-select-wrap">
+    <label class="book-select-label" for="book-select">选择答案册</label>
+    <select class="book-select" id="book-select"></select>
+  </div>
   <div class="sidebar-content" id="sidebar-content"></div>
 </aside>
 <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
@@ -147,21 +152,22 @@ const sidebar=document.getElementById('sidebar'),overlay=document.getElementById
 sidebarContent=document.getElementById('sidebar-content'),slideContainer=document.getElementById('slide-container'),
 breadcrumb=document.getElementById('breadcrumb'),navDots=document.getElementById('nav-dots'),
 prevBtn=document.getElementById('prev-btn'),nextBtn=document.getElementById('next-btn'),
-contentArea=document.getElementById('content-area'),bookTabs=document.getElementById('book-tabs');
+contentArea=document.getElementById('content-area'),bookSelect=document.getElementById('book-select');
 
 function bookMeta(){return indexData.books[curBook];}
 function setMeta(si){return bookMeta().sets[si];}
 
 function initBookTabs(){
-  bookTabs.innerHTML='';
+  bookSelect.innerHTML='';
   indexData.books.forEach((b,bi)=>{
-    const t=document.createElement('button');
-    t.className='book-tab'+(bi===curBook?' active':'');
-    t.textContent=b.book_name;
-    t.onclick=()=>switchBook(bi);
-    bookTabs.appendChild(t);
+    const o=document.createElement('option');
+    o.value=bi;
+    o.textContent=b.book_name;
+    if(bi===curBook) o.selected=true;
+    bookSelect.appendChild(o);
   });
 }
+bookSelect.addEventListener('change',e=>switchBook(parseInt(e.target.value,10)));
 function switchBook(bi){
   if(bi===curBook) return;
   curBook=bi;curSet=-1;curQ=0;curSetData=null;
