@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>刷题解析</title>
 <style>
 :root{
@@ -316,7 +319,7 @@ function closeSidebar(){sidebar.classList.remove('open');overlay.classList.remov
 document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prevQuestion();if(e.key==='ArrowRight')nextQuestion();});
 let tsx=0,tex=0;
 contentArea.addEventListener('touchstart',e=>{tsx=e.changedTouches[0].screenX;},{passive:true});
-contentArea.addEventListener('touchend',e=>{tex=e.changedTouches[0].screenX;const d=tsx-tex;if(Math.abs(d)<window.innerWidth*0.4)return;d>0?nextQuestion():prevQuestion();},{passive:true});
+contentArea.addEventListener('touchend',e=>{tex=e.changedTouches[0].screenX;const d=tsx-tex;if(Math.abs(d)<window.innerWidth*0.5)return;d>0?nextQuestion():prevQuestion();},{passive:true});
 
 (async function init(){
   try{
