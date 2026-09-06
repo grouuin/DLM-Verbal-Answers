@@ -207,6 +207,12 @@ function switchBook(bi){
   curBook=bi;curSet=-1;curQ=0;curSetData=null;
   initBookTabs();initSidebar();
   if(bookMeta().sets.length>0) selectQuestion(0,0);
+  else{
+    curSetData=null;navDots.innerHTML='';
+    breadcrumb.innerHTML='<strong>'+bookMeta().book_name+'</strong> <span style="color:var(--text2)">/ 暂无题目</span>';
+    showState('📚','该答案册暂无题目');
+    prevBtn.disabled=true;nextBtn.disabled=true;
+  }
 }
 function initSidebar(){
   sidebarContent.innerHTML='';
@@ -236,7 +242,7 @@ function toggleSet(si){
 async function getSet(si){
   const meta=setMeta(si),key=curBook+'-'+meta.set_num;
   if(setCache[key]) return setCache[key];
-  const r=await fetch('b'+(curBook+1)+'/set'+meta.set_num+'.json',{cache:'no-cache'});
+  const r=await fetch('b'+bookMeta().book_id+'/set'+meta.set_num+'.json',{cache:'no-cache'});
   if(!r.ok) throw new Error('HTTP '+r.status);
   const d=await r.json();
   setCache[key]=d;
