@@ -1,0 +1,96 @@
+{
+  "set_num": 20,
+  "set_name": "练习二十逻辑推理解析",
+  "questions": [
+    {
+      "q_num": 1,
+      "type": "真假话推理",
+      "answer": "D",
+      "analysis_html": "<p>四人 <strong>两真两假</strong>，先找矛盾关系。</p><ul><li>吴妈妈：“如果陈不去，林也不去”＝<strong>¬陈→¬林</strong>。</li><li>张妈妈：“林会去，陈不会去”＝<strong>林 ∧ ¬陈</strong>。</li></ul><p>“¬陈→¬林”的矛盾命题正是“¬陈且林”，所以<strong>吴、张矛盾——一真一假</strong>。共两真两假，剩下的<strong>李、郑也一真一假</strong>。</p><p>再看李、郑：李“陈去”，郑“陈去或林去”。若李为真（陈去），郑“至少一个去”必为真——李、郑就都为真，矛盾。所以<strong>李必须为假</strong>→陈没去；郑则为真→“陈去或林去”，陈已不去，故<strong>林去</strong>。</p><p>张妈妈“林去且陈不去”正好为真。所以猜对的是<strong>郑妈妈和张妈妈</strong>，选 D。</p><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">“A→B”的矛盾是“A且¬B”，先把它化成命题形式找矛盾(吴 vs 张)。真假话里若某话是真话者的话的子集，则“小范围真→大范围真”——李(陈去)只是郑(陈去或林去)的一部分，正因如此李不能真，只能假。矛盾关系先锁一真一假，再顺藤摸瓜。</span></div>"
+    },
+    {
+      "q_num": 2,
+      "type": "假言推理",
+      "answer": "A",
+      "analysis_html": "<p>2正科2副科。注意“<strong>甲或乙之一</strong>”是“要么甲、要么乙”，<strong>不包含“甲且乙”</strong>。三个假言可串：要么甲/乙任正科→丁正科→丙正科。</p><ul><li>若甲、乙里只有一个人任正科，会顺势推出丁、丙也正科，总共<strong>三个</strong>正科，超出2个，矛盾。故<strong>“之一任正科”这支不能成立</strong>（同理“之一任副科”也不能成立）。</li><li>“要么…要么”不成立的取值就是“甲且乙”或“¬甲且¬乙”。代入选项：</li></ul><p>A“甲乙均任正科”：三个假言<strong>前件全部被否掉</strong>，全部恒真，<strong>无意矛盾</strong>，故可能为真，选 A。B、C、D 代入都会推出“正科人数超过2”的矛盾（如 B/C 里甲或乙只有一人正科，会额外推出丁正科；D 里丁正科会推出丙正科）。</p><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">这里的陷阱是“<strong>之一</strong>”≠“或”。“或”才能让后件优先级更高；“要么…要么”<strong>不含“两者都”</strong>，所以“甲乙都正科”时前件被否、链条断掉，反而不矛盾。判定“可能为真”最快是用<strong>正面代入无矛盾</strong>：A 把三个假言全推到“否前”，无矛盾即可成立。B/C 同构可一并排除。</span></div>"
+    },
+    {
+      "q_num": 3,
+      "type": "削弱论证",
+      "answer": "D",
+      "analysis_html": "<p>做法：安监部门发小册子教市民定期清洗电热水器，以解决“不清洗→易损坏出事故”的问题。质疑“做法的效果”，就指出<strong>方案可能行不通、达不到目的</strong>。</p><ul><li>D“许多市民<strong>看不懂</strong>小册子的清洗流程”：册子发了，但目标人群看不懂，就达不到“教会他们定期清洗”的目的，效果大打折扣，<strong>削弱</strong>，选 D。</li><li>A“不当操作也会带来损坏危险”：是“不清洗”之外的<strong>另一个问题</strong>，与本方案要解决的“定期清洗”无关，无关项。</li><li>B“小册子发到所有用电热水器的市民”：范围广、推行得开，是<strong>支持</strong>。</li><li>C“部分市民冬天在公共澡堂洗澡”：用公共澡堂的人本就不是本方案目标群体，无关。</li></ul><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">质疑“方案效果”＝论证<strong>方案不可行/效果打折</strong>(D：看不懂)。削弱不用“把对方拍死”，只要“成立的可能性降低一点”就够。A 是典型的“<strong>另外的问题</strong>”——我解决的是“不清洗”，你扯“不当操作”与我无关；先把措施要解决的“<strong>靶问题</strong>”圈清楚，别被别的毛病带偏。</span></div>"
+    },
+    {
+      "q_num": 4,
+      "type": "削弱论证",
+      "answer": "C",
+      "analysis_html": "<p>论证：珍珠粉很难渗入皮肤→靠珍珠粉美白不现实。问“<strong>除了哪项外均能反驳</strong>”，即找那一个<strong>不能反驳</strong>的。</p><ul><li>A“现代技术让珍珠粉达到百纳米以下可被吸入”：否掉“难渗入”的论据，能反驳。</li><li>B“某明星长期外用珍珠粉，年过60仍白皙”：成例证（虽偏表象，但至少给“用了会白”的一组数据），能起到一定反驳。</li><li>D“珍珠粉中的牛磺酸能加强巨噬细胞吞噬黑色素”：给出<strong>珍珠粉→吞噬黑色素→变白</strong>的机制，能反驳。</li><li>C“珍珠粉外敷隔绝空气、减缓氧化、<strong>延缓衰老</strong>”：本题讨论的是<strong>美白</strong>，衰老≠美白，属<strong>无关项</strong>，不能反驳，选 C。</li></ul><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">“除了哪项外均能反驳”题，先把核心议题钉死——这里是“<strong>美白</strong>”。C 换成“<strong>延缓衰老</strong>”就偷换了目标（黑皮肤也能延缓衰老、并不等于变白）。逐项问一句“它有没有让‘珍珠粉能美白’更可能成立”，C 没有，所以它不能反驳。</span></div>"
+    },
+    {
+      "q_num": 5,
+      "type": "集合推理",
+      "answer": "C",
+      "analysis_html": "<p>三个论断画圈：太原台 ⊆ 山西；太原人都喜欢面食；“有些山西人喜欢旅游”（只知与“山西”有交集，范围不确定）。</p><ul><li>Ⅰ“有些山西人不是太原人”：不一定——太原人与山西人<strong>可能完全重合</strong>，故只是可能真、不能必然推出。</li><li>Ⅱ“有些山西人不喜欢旅游”：不一定——“喜欢旅游”的范围可能<strong>扩展覆盖所有山西人</strong>，故也只是可能真。</li><li>Ⅲ“有些山西人喜欢吃面食”：太原人都是山西人、且太原人都爱面食，那么这些“爱面食的太原人”<strong>一定存在于山西人中</strong>，必然为真。</li></ul><p>只有Ⅲ能推出，选 C。</p><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">“能推出”=必然成立，不能拿“<strong>只是可能</strong>”的Ⅰ(重合边界)、Ⅱ(虚线范围可扩满)来充数。能确定的是“<strong>太原人爱面食</strong>”这个<strong>确定子集</strong>，它保证“有些山西人爱面食”必真。集合题的边界情形（圈可能重合、虚线可能铺满）是高频出题点。</span></div>"
+    },
+    {
+      "q_num": 6,
+      "type": "假言推理",
+      "answer": "D",
+      "analysis_html": "<p>7人选3人；张王李3名博士生<strong>至多1人</strong>，其余4名教授<strong>至多2人</strong>。要凑满3人，只能是“博士1人＋教授2人”。</p><ul><li>(1)赵参会→孙、张不参会；(2)牛参会→张、赵参会。</li><li>串起来：<strong>牛参会→张且赵参会→赵参会→孙且张不参会</strong>，与前面推出的“张参会”自相矛盾，故<strong>牛不参会</strong>。</li><li>牛不参会后，教授中的<strong>赵、孙、陈要三选二</strong>。而(1)“赵参会→孙不参会”、再否后推否前得“孙参会→赵不参会”，赵、孙<strong>互斥、至多去一人</strong>。</li></ul><p>赵孙至多一人，要凑满两位教授，<strong>陈必参会</strong>，选 D。</p><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">先由“3人选、博士≤1、教授≤2”锁定<strong>恰好“1博士＋2教授”</strong>，人数才卡得死。再把假言串链，发现“牛→张→…→张不参会”自打脸，推出牛不参会；最后用“赵孙互斥、至多一人”逼出陈必参会。链条自相矛盾是排除某人参会的关键信号。</span></div>"
+    },
+    {
+      "q_num": 7,
+      "type": "真假话推理",
+      "answer": "B",
+      "analysis_html": "<p>规则：<strong>完成者说真话、未完成者说假话</strong>。观察四个选项<strong>均为三人未完成</strong>，就顺着这个信息反推。</p><ul><li>丙说“除丁外，我们四人都完成”。既然总有<strong>三人</strong>未完成，丙的话必为假→<strong>丙未完成</strong>，故排除不含丙的 C。</li><li>甲说“(甲、乙、丁、戊中)只有一人未完成”。若为真，最多也就两人(加丙)未完成，与“三人未完成”矛盾，故甲必假→<strong>甲未完成</strong>，排除不含甲的 D。</li><li>剩下 A(甲、乙、丙)与 B(甲、丙、丁)。乙说“甲、乙、丙、丁中有三人未完成”。</li><li>A 中甲乙丙未完成，则甲乙丙丁里“甲乙丙”恰好<strong>三人</strong>未完成，乙这句为<strong>真</strong>——但乙未完成应说假话，矛盾，排除 A。</li><li>因此选 B（甲、丙、丁未完成；此时丁说“甲和乙未完成”为假、乙说真话，均自洽）。</li></ul><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">直接假设法太慢时，<strong>先利用选项</strong>：四个选项都是“三人未完成”，说明“三人未完成”是硬约束，据此秒杀丙(说四人完成)、甲(说仅一人未完成)必假，剩下只需验证乙、丁谁的表述和“完成=真话”自洽。题干“完成者说真话”是把“<strong>身份</strong>”和“<strong>真假</strong>”绑定的钥匙。</span></div>"
+    },
+    {
+      "q_num": 8,
+      "type": "前提假设",
+      "answer": "A",
+      "analysis_html": "<p>专家建议“罚款”让市民为避免罚款而正确分类。这个建议只有论点、没有论据，要补的是<strong>必要性前提</strong>。</p><ul><li>A“与正确分类相比，人们<strong>更不愿被罚款</strong>”：取反——若人们<strong>更愿意被罚款</strong>胜过去分类，那“罚就罚呗”，罚款就起不到督促作用，论点直接失效。所以 A 是<strong>必要前提</strong>，选 A。</li><li>B“每个为之者都一定被抓到罚款”、D“罚款是<strong>唯一</strong>有效方法”：都是<strong>过强假设</strong>——方案有效并不要求“抓尽每一个”或“唯我独尊”，它们只能算“支持”，不是“前提”。</li><li>C“罚款金额大小不影响效果”：取反（金额大小会影响效果）也并不否定方案本身，罚多罚少仍是决策问题，不是必要前提。</li></ul><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">前提的核心是“<strong>没有它就不行</strong>”（取反后论点就倒），不是“有它更好”。B“一定抓尽”、D“唯一方法”都太过分，属于“<strong>过强假设</strong>”（类比：上岸只需“本岗位第一”，不该要求“全省第一”）。用<strong>取反验证</strong>：把选项否定，若论点仍可能成立，它就不是前提。</span></div>"
+    },
+    {
+      "q_num": 9,
+      "type": "加强论证",
+      "answer": "D",
+      "analysis_html": "<p>论据：到医疗机构接种疫苗的人中，仅 1% 感染狂犬病。推测：<strong>所有被狗咬伤者</strong>（含在家自行处理的）感染比例<strong>高于1%</strong>。要支持，就要说明“<strong>在家自行处理的那部分人感染率更高(&gt;1%)</strong>”。</p><ul><li>D“及时接种疫苗是预防狂犬病<strong>最有效</strong>的方法”：既然最有效，其感染率就是<strong>最低</strong>；最低都还有1%，那未接种者(在家处理等)感染率<strong>必然&gt;1%</strong>，两部分混合后整体自然&gt;1%，<strong>支持</strong>，选 D。</li><li>A“预防知识普及做得不好”、B“狗大多没打疫苗”、C“病例必须上报”：都与“在家自行处理者的实际感染率是多少”无关。</li></ul><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">“已知A部分=1%，要推整体&gt;1%”，缺的是“<strong>其它部分&gt;1%</strong>”。D 用“最有效方法=<strong>最低感染率</strong>”给出关键支点：最低都是1%，别的只会更高，混合必&gt;1%。这和“百尾路”那类题同构——整体大于某数，靠“最低的那部分都够到了，其余更高”来证明。</span></div>"
+    },
+    {
+      "q_num": 10,
+      "type": "削弱论证",
+      "answer": "B",
+      "analysis_html": "<p>论据：洋葱挥发的含硫化合物能抑菌抗癌、净化空气。论点：室内放几颗切开的洋葱<strong>能有效预防感冒</strong>。</p><ul><li>B“人患感冒中 70%~80% 由<strong>病毒</strong>引起，而洋葱对病毒没有抑制作用”：点破大部分感冒是病毒性的，洋葱的抑菌对它<strong>基本无效</strong>，直接大幅削弱“能预防感冒”，选 B。</li><li>A“对肠道细菌有抑制、需每天口服”：题干讲的是“<strong>呼吸道感冒</strong>”而非肠道细菌，且靠摆放而非口服，无关。</li><li>C“放置1小时细菌总数<strong>没有显著</strong>减少”：题干只说“抑菌”，没承诺“显著减少”；不显著最多说明效果弱，仍可能有一点作用，力度不及 B 的“对主因(病毒)无效”。</li><li>D“尚未发现食物能有效吸附病菌病毒”：一是“<strong>尚未发现</strong>”属诉诸无知，且题干讲的是“抑制”而非“吸附”，无关。</li></ul><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">最强的驳斥是砸在“<strong>主要成因</strong>”上(B：70%~80%是病毒，洋葱对病毒无效)。C 里“<strong>没有显著减少</strong>”≠“没作用”，它只是把效果从10分降到9分，不如 B 直接归零。留意“显著”“尚未发现”这类<strong>软性/诉诸无知</strong>措辞常是干扰项。</span></div>"
+    },
+    {
+      "q_num": 11,
+      "type": "加强论证",
+      "answer": "A",
+      "analysis_html": "<p>专家观点：<strong>对经济复苏不要过度自信乐观</strong>（只有论点、没讲理由）。支持就是给“繁荣只是表面”的证据。</p><ul><li>A“失业率下降的背景是<strong>房价上涨、物价升高、消费者购买力下降</strong>”：戳破表面繁荣——百姓买不起东西，经济复苏的前提就不成立，<strong>支持专家“别太乐观”</strong>，选 A。</li><li>B“经济数据常被外国媒体质疑造假”：被质疑≠数据就是假的（诉诸他人/诉诸质疑），要看数据本身对不对，无关。</li><li>C“工作年龄人口增、但退休使<strong>劳动力市场规模缩小</strong>”：是在解释“<strong>为什么失业率下降</strong>”（岗位腾出来了），并不对“复苏是否乐观”表态，无关。</li><li>D“知名大企业入驻”：大企业入驻带来岗位，是<strong>好事</strong>，反而偏向乐观，不能支持专家。</li></ul><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">专家只抛“别乐观”的论点，支持就要<strong>补出“繁荣的隐忧”</strong>(A：购买力下降)。B“被人质疑”是<strong>诉诸他人</strong>的逻辑谬误——质疑≠为假；C/D 反而在解释“失业率为何降”，甚至偏利好。先分清选项是在“<strong>佐证繁荣真</strong>”还是“<strong>揭示繁荣虚</strong>”。</span></div>"
+    },
+    {
+      "q_num": 12,
+      "type": "削弱论证",
+      "answer": "B",
+      "analysis_html": "<p>奶茶爱好者的抱怨：纸吸管<strong>同样污染环境</strong>，夺走快乐却换不来环保（言下之意不如用回塑料吸管）。质疑它，就要指出“<strong>换纸吸管确实更环保</strong>”。</p><ul><li>B“国内很多地方仍对垃圾<strong>填埋</strong>、主要依赖<strong>自然降解</strong>”：既然处理主要靠自然降解，那“纸3~4个月 vs 塑料上百年”的降解优势就被<strong>放大</strong>，纸吸管更环保，<strong>质疑抱怨</strong>，选 B。</li><li>A“纸吸管基本<strong>不具备二次使用</strong>价值”：贬低纸吸管，是<strong>支持</strong>奶茶爱好者的抱怨。</li><li>C“若用焚烧处理，换纸意义不大”：也是在支持“换纸没意义”。</li><li>D“人类总会污染环境，关键是控制在限度内”“反正都污染”：是“都差不多、无所谓”的论调，谈的是底线容忍度，不是“纸 vs 塑料谁更环保”的<strong>比较</strong>，无关。</li></ul><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">纸吸管<strong>有优点也有缺点</strong>，谁更环保取决于“<strong>哪个权重更大/更关键</strong>”。B 说“主要靠自然降解”，就相当于把“纸降解快”的权重抬到80%，把纸的优势放大，这才能质疑“纸不环保”的抱怨。D 偷换成“反正都污染、无所谓”，回避了二者的<strong>比较</strong>。</span></div>"
+    },
+    {
+      "q_num": 13,
+      "type": "假言推理",
+      "answer": "D",
+      "analysis_html": "<p>先选百合作主花，其余5种至少再选一种。顺着假言推理：</p><ul><li>(1)“没有玫瑰就没百合”→有百合，<strong>否后推否前</strong>→<strong>有玫瑰</strong>。</li><li>(2)“玫瑰和康乃馨不能一起搭配”→有玫瑰→<strong>无康乃馨</strong>。</li><li>(3)“只要有剑兰就一定有康乃馨”→无康乃馨，<strong>否后推否前</strong>→<strong>无剑兰</strong>。</li><li>(4)“如果没马蹄莲且没勿忘我，就一定会有康乃馨”→无康乃馨，否后推否前→“非(没马蹄莲且没勿忘我)”＝<strong>有马蹄莲或有勿忘我</strong>。</li></ul><p>所以马蹄莲和勿忘我<strong>至少选一个</strong>——“<strong>不选马蹄莲→必选勿忘我</strong>”（否一推一），选 D。A“只能选玫瑰”错（还要马蹄莲/勿忘我至少一个）；B“可选剑兰”错（无剑兰）；C“选勿忘我就不选马蹄莲”错（两者可同选）。</p><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">关键在条件(4)的前件“<strong>没有马蹄莲和勿忘我</strong>”＝“既没马蹄莲<strong>也</strong>没勿忘我”(且)，其否定是“有马蹄莲<strong>或</strong>有勿忘我”。用“<strong>否后推否前</strong>”一路反向传导：百合→玫瑰→无康乃馨→无剑兰 + (马蹄莲∨勿忘我)。牢记“没A和B”的否定还要<strong>但换且变或</strong>。</span></div>"
+    },
+    {
+      "q_num": 14,
+      "type": "组合排列",
+      "answer": "A",
+      "analysis_html": "<p>四个队 J、W、H、R 之间的胜负关系，用箭头标注“A→B 表示 A 赢 B”。</p><ul><li>“H队赢过其他所有球队”→H 赢 J、赢 W、赢 R。</li><li>“赢过 J 队的球队都输给过 W 队”→H 赢过 J，故 <strong>H 输给 W</strong>。</li><li>“输给 W 队的也都输给过 R 队”→H 输给 W，故 <strong>H 输给 R</strong>，即<strong>R 赢过 H</strong>。</li><li>“J队没赢过任何一场”→J 不指向任何人，这点不带来新推理。</li></ul><p>由此<strong>R 赢过 H</strong>成立(选 A)。B“W没输过球”错(已画 H→W？W 与 R 的关系题干未给出，无法推“W输没输”)；C“W赢过J”无法推出；D“R赢过W”也无条件支持。选 A。</p><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">胜负关系题用<strong>有向箭头</strong>画图最直观：谁赢就由谁画指向谁。顺着“<strong>赢过J→输给W</strong>”“<strong>输给W→输给R</strong>”两条传递链，H 从“赢家”一步步被推到“输给 R”，即可锁定 R 赢 H。抓住题干给出的<strong>传递关系</strong>，别去脑补题干没说到的(如 R 与 W)胜负。</span></div>"
+    },
+    {
+      "q_num": 15,
+      "type": "组合排列",
+      "answer": "B",
+      "analysis_html": "<p>每人都要<strong>独自逐个调研5地</strong>、每人顺序各不相同、且每个时段都轮换——这其实是个<strong>5×5数独</strong>：每行(每人)1~5不重不漏，每列(同一时段)1~5不重不漏。把条件对应成格子：</p><ul><li>(1)丙的第1=宁山＝甲的第4；(2)丁的第1=淳水＝乙的第3；(3)甲的第2=鼓城＝丙的第3＝戊的第5；(4)乙的第5=建村＝丙的第4＝丁的第3。</li></ul><p>先填这些已知格，再找“<strong>交叉十字</strong>”处凭行列排除，逐格推出剩余数字。排满五列后对应选项：</p><ul><li>A“甲的第1＝乙的第2”：甲之1=建村、乙之2=宁山，不一致。</li><li>B“乙的第4＝戊的第1”：乙之4=浦江、戊之1=浦江，<strong>一致，选 B</strong>。</li><li>C、D 经核对均不符。</li></ul><div class=\"tip-box tip-技巧\"><span class=\"tip-label\">技巧</span><span class=\"tip-body\">“独自逐个调研、顺序各不相同、同段轮换”的题本质是<strong>数独</strong>：行、列都要 1~5 不重不漏。先把四个条件对应的格子标号填好，再从<strong>行列交叉、已有数字最多</strong>的空格开始“<strong>行排除＋列排除</strong>”唯一确定。这类题耗时长、性价比低，做题时少写全名、只记能定位的简称。</span></div>"
+    }
+  ]
+}
