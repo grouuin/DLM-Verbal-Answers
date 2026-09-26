@@ -94,6 +94,12 @@ border-left:3px solid var(--primary);line-height:1.6;}
 .tip-body{color:#57534e;}
 .tip-提醒 .tip-body{color:#1e3a8a;}
 .soft-hr{border:none;border-top:1px dashed var(--border);margin:18px 0;}
+/* 分数（\frac 渲染为上下堆叠） */
+.frac{display:inline-flex;flex-direction:column;vertical-align:-0.45em;text-align:center;
+font-size:.86em;line-height:1.15;margin:0 .16em;max-width:100%;}
+.frac>.frac-num{padding:0 .3em .05em;border-bottom:1.3px solid currentColor;}
+.frac>.frac-den{padding:.05em .3em 0;}
+.frac .frac{font-size:.95em;vertical-align:-0.4em;margin:0 .1em;}
 .empty-state{text-align:center;padding:50px 24px;color:var(--text2);}
 .empty-state .big{font-size:40px;margin-bottom:12px;}
 .empty-state p{font-size:14.5px;line-height:1.7;}
