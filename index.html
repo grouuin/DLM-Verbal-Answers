@@ -55,6 +55,9 @@ cursor:pointer;text-align:center;transition:all .2s;color:var(--text);}
 .q-btn:hover{border-color:var(--primary);color:var(--primary);}
 .q-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
 .q-btn.done::after{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--success);margin:2px auto 0;}
+.q-btn.answer-btn{grid-column:1 / -1;background:var(--success-bg);color:var(--success);border-color:#bbf7d0;font-weight:700;}
+.q-btn.answer-btn:hover{border-color:var(--success);color:var(--success);}
+.q-btn.answer-btn.active{background:var(--success);color:#fff;border-color:var(--success);}
 /* Main */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative;}
 .top-bar{height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);
@@ -211,6 +214,13 @@ function initSidebar(){
     sbtn.onclick=e=>{e.stopPropagation();toggleSet(si);};
     const ql=document.createElement('div');
     ql.className='question-list';ql.id='qlist-'+si;
+    if(set.has_answer_page){
+      const ab=document.createElement('button');
+      ab.className='q-btn answer-btn';
+      ab.textContent='答案';
+      ab.onclick=e=>{e.stopPropagation();selectQuestion(si,-1);if(innerWidth<=768)closeSidebar();};
+      ql.appendChild(ab);
+    }
     set.questions.forEach((q,qi)=>{
       const b=document.createElement('button');
       b.className='q-btn'+(q.done?' done':'');
@@ -249,18 +259,33 @@ function renderCard(q){
     +'<span class="badge badge-primary">'+q.type+'</span>'
     +'</div></div><div class="card-body"><div class="empty-state"><div class="big">📝</div><p>解析待校正</p></div></div></div>';
 }
+function hasAnswerPage(set){return !!(set&&set.answer_page);}
+function renderAnswerPage(html){
+  return '<div class="card"><div class="card-head"><div class="meta">'
+    +'<span class="badge badge-num">参考答案</span>'
+    +'<span class="badge badge-success">速查</span>'
+    +'</div></div><div class="card-body">'+html+'</div></div>';
+}
 function renderSlides(set){
   curSetData=set;
   slideContainer.innerHTML='';
+  if(hasAnswerPage(set)){
+    const s=document.createElement('div');s.className='slide';s.innerHTML=renderAnswerPage(set.answer_page);slideContainer.appendChild(s);
+  }
   set.questions.forEach(q=>{const s=document.createElement('div');s.className='slide';s.innerHTML=renderCard(q);slideContainer.appendChild(s);});
 }
 function showState(big,text){
   slideContainer.innerHTML='<div class="slide"><div class="empty-state"><div class="big">'+big+'</div><p>'+text+'</p></div></div>';
 }
+function qToPos(qi){
+  if(qi<0) return 0;
+  return (hasAnswerPage(curSetData)?1:0)+qi;
+}
 function slideTo(qi,animate=true){
   curQ=qi;
+  const pos=qToPos(qi);
   slideContainer.style.transition=animate?'transform .3s ease':'none';
-  slideContainer.style.transform='translateX(-'+(qi*100)+'%)';
+  slideContainer.style.transform='translateX(-'+(pos*100)+'%)';
   if(animate){isAnim=true;setTimeout(()=>isAnim=false,300);}
   updateSidebarActive();
 }
@@ -272,7 +297,7 @@ async function selectQuestion(si,qi){
   const ql=document.getElementById('qlist-'+si);
   document.querySelectorAll('.question-list.show').forEach(el=>el.classList.remove('show'));
   document.querySelectorAll('.set-button.expanded').forEach(el=>el.classList.remove('expanded'));
-  if(ql){ql.classList.add('show');ql.previousElementSibling.classList.add('expanded');if(ql.children[qi])ql.children[qi].classList.add('active');}
+  if(ql){ql.classList.add('show');ql.previousElementSibling.classList.add('expanded');const aidx=(qi<0)?0:((meta.has_answer_page?1:0)+qi);if(ql.children[aidx])ql.children[aidx].classList.add('active');}
   const key=curBook+'-'+meta.set_num;
   if(si===curSet && setCache[key]){slideTo(qi);return;}
   loading=true;
@@ -293,10 +318,23 @@ async function selectQuestion(si,qi){
 function updateSidebarActive(){
   document.querySelectorAll('.q-btn').forEach(b=>b.classList.remove('active'));
   const ql=document.getElementById('qlist-'+curSet);
-  if(ql&&ql.children[curQ]){ql.children[curQ].classList.add('active');ql.children[curQ].scrollIntoView({block:'nearest'});}
+  if(ql){const idx=(curQ<0)?0:((hasAnswerPage(curSetData)?1:0)+curQ);if(ql.children[idx]){ql.children[idx].classList.add('active');ql.children[idx].scrollIntoView({block:'nearest'});}}
 }
-function prevQuestion(){if(!curSetData||curQ<=0)return;selectQuestion(curSet,curQ-1);}
-function nextQuestion(){if(!curSetData)return;if(curQ>=curSetData.questions.length-1)return;selectQuestion(curSet,curQ+1);}
+function prevQuestion(){
+  if(!curSetData)return;
+  if(hasAnswerPage(curSetData)){
+    if(curQ<0)return;
+    if(curQ===0){selectQuestion(curSet,-1);return;}
+  }
+  if(curQ<=0)return;
+  selectQuestion(curSet,curQ-1);
+}
+function nextQuestion(){
+  if(!curSetData)return;
+  if(hasAnswerPage(curSetData)&&curQ<0){selectQuestion(curSet,0);return;}
+  if(curQ>=curSetData.questions.length-1)return;
+  selectQuestion(curSet,curQ+1);
+}
 function openSidebar(){sidebar.classList.add('open');overlay.classList.add('show');}
 function closeSidebar(){sidebar.classList.remove('open');overlay.classList.remove('show');}
 document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prevQuestion();if(e.key==='ArrowRight')nextQuestion();});
